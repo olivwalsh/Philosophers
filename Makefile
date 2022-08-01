@@ -17,6 +17,9 @@ SRC_DIR		= src/
 INC_DIR		= inc/
 
 SRC_FILES	=	main.c \
+				parse.c \
+				init.c \
+				utils.c \
 				error.c
 
 OBJS		= $(addprefix ${OBJ_DIR}, ${SRC_FILES:.c=.o})
@@ -30,8 +33,8 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) $(MEM) $(INC) -c $< -o $@
 
 $(NAME) : $(OBJS)
-	@echo -n "Compiling Philosophers"
 	$(CC) $(CFLAGS) $(MEM) $(INC) $(OBJS) -o $@
+	@echo -n "Compiling Philosophers"
 	@echo $(GREEN)"\tOK"$(RESET)
 
 clean :

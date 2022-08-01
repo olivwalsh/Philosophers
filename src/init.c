@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 18:13:41 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/01 16:18:47 by owalsh           ###   ########.fr       */
+/*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
+/*   Updated: 2022/08/01 15:43:33 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	init(t_philo *philo, int argc, char **argv)
 {
-	t_philo	philo;
-
-	ft_memset(&philo, 0, sizeof(t_philo));
-	if (parsing_is_valid(argc, argv))
-		return (EXIT_FAILURE);
-	if (init(&philo, argc, argv))
-		return (ft_error(INIT_ERROR));
-	display_philo(&philo);
-	return (EXIT_SUCCESS);
+	philo->number = ft_atoi(argv[1]);
+	philo->time_to_die = ft_atoi(argv[2]);
+	philo->time_to_eat = ft_atoi(argv[3]);
+	philo->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		philo->meals_per_philo = ft_atoi(argv[5]);
+	return (0);
 }
