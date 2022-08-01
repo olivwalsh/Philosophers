@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/01 16:19:05 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/01 16:26:52 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-void	display_philo(t_philo *data)
+void	display_simulation(t_sim *data)
 {
 	printf("philo->number = %d\n", data->number);
 	printf("philo->time_to_die = %d\n", data->time_to_die);
