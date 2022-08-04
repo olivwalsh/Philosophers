@@ -10,7 +10,7 @@ endif
 # Variables
 NAME		= philo
 CFLAGS		= -Wall -Wextra -Werror
-CC			= gcc -pthread
+CC			= cc -pthread
 
 OBJ_DIR		= objs/
 SRC_DIR		= src/
@@ -21,7 +21,8 @@ SRC_FILES	=	main.c \
 				init.c \
 				utils.c \
 				error.c \
-				philo.c
+				philo.c \
+				exit.c
 
 OBJS		= $(addprefix ${OBJ_DIR}, ${SRC_FILES:.c=.o})
 INC			= -I./$(INC_DIR)
