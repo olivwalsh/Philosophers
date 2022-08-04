@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/01 16:26:14 by owalsh           ###   ########.fr       */
+/*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
+/*   Updated: 2022/08/04 15:21:48 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init(t_sim *data, int argc, char **argv)
+void* eat(t_sim *data, t_philo *philo)
 {
-	data->number = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		data->meals_per_philo = ft_atoi(argv[5]);
-	else
-		data->meals_per_philo = 0;
-	return (0);
+	struct timeval	start;
+
+    pthread_mutex_lock(&philo->fork);
+	pthread_mutex_lock(&philo->next->fork);
+	gettimeofday(&start, NULL);
+    printf("%ld %d is eating\n", start.tv_usec * 1000, philo->nb);
+	usleep(data->time_to_eat / 1000);
+    pthread_mutex_unlock(&philo->fork);
+  	pthread_mutex_unlock(&philo->next->fork);
+    return (NULL);
 }

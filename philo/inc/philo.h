@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/01 16:23:13 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/04 15:19:48 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,27 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <pthread.h>
+# include <string.h>
+# include <sys/time.h>
 
 typedef	struct s_philosopher
 {
-	
+	int						nb;
+	pthread_t				id;
+	struct s_philosopher	*prev;
+	struct s_philosopher	*next; 
+	pthread_mutex_t 		fork;
 }				t_philo;
 
 typedef struct s_simulation
 {
-	int	number;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	meals_per_philo;
+	int		number;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		meals_per_philo;
+	t_philo	*philo;
 }				t_sim;
 
 /* ***** parse.c ***** */

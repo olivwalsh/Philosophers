@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:13:41 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/01 16:25:08 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/04 14:59:12 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (init(&data, argc, argv))
 		return (ft_error(INIT_ERROR));
-	display_simulation(&data);
+	// display_simulation(&data);
+	
 	return (EXIT_SUCCESS);
 }
