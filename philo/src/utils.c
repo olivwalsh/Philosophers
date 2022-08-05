@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/04 18:01:21 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/05 14:43:07 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,4 @@ void	display_simulation(t_sim *data)
 		i++;
 	}
 	printf("--------------------------------------\n");
-	printf("testing get_last_philo function\n");
-	printf("last philo = %p\n", get_last_philo(data->philo));
 }

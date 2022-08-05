@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/04 18:01:42 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/05 16:03:11 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,21 @@ typedef	struct s_philosopher
 	int						nb;
 	pthread_t				id;
 	struct s_philosopher	*prev;
-	struct s_philosopher	*next; 
+	struct s_philosopher	*next;
+	struct s_philosopher	*head;
 	pthread_mutex_t 		fork;
 }				t_philo;
 
 typedef struct s_simulation
 {
-	int		number;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	int		meals_per_philo;
-	t_philo	*philo;
+	int				number;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	int				meals_per_philo;
+	pthread_mutex_t	print;
+	t_philo			*philo;
+	t_philo			*tmp;
 }				t_sim;
 
 /* ***** parse.c ***** */
@@ -55,6 +58,9 @@ int				parsing_is_valid(int argc, char **argv);
 
 /* ***** init.c ***** */
 int				init(t_sim *data, int argc, char **argv);
+
+/* ***** philo.c ***** */
+void			start(t_sim *data);
 
 /* ***** utils.c ***** */
 void			display_simulation(t_sim *data);

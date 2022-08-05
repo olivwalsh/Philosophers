@@ -6,14 +6,18 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/04 18:00:54 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/05 14:25:48 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void* init_thread()
+void* init_thread(void *ptr)
 {
+	t_philo *philo;
+
+	philo = (t_philo *)ptr;
+
     pthread_detach(pthread_self());
     pthread_exit(NULL);
 }
@@ -26,7 +30,6 @@ t_philo	*create_philo(int id)
 	if (!new)
 		return (NULL);
 	new->nb = id;
-	pthread_create(&new->id, NULL, &init_thread, NULL);
 	pthread_mutex_init(&new->fork, NULL);
 	new->next = NULL;
 	new->prev = NULL;
@@ -39,6 +42,7 @@ void	lstadd_philo(t_philo **lst, t_philo *new)
 
 	if (*lst)
 	{
+		new->head = *lst;
 		last = get_last_philo(*lst);
 		last->next = new;
 		new->prev = last;
@@ -46,7 +50,10 @@ void	lstadd_philo(t_philo **lst, t_philo *new)
 		(*lst)->prev = new; 
 	}
 	else
+	{
 		*lst = new;
+		new->head = new;
+	}
 }
 
 int	init(t_sim *data, int argc, char **argv)
