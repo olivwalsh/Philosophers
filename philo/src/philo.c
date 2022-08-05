@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/05 16:23:47 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/05 16:27:33 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //     return (NULL);
 // }
 
-void* print_hello(void *ptr)
+void	*print_hello(void *ptr)
 {
 	t_sim	*data;
 
@@ -46,7 +46,7 @@ void	start(t_sim *data)
 		printf("Mutex init failed\n");
 	i = 0;
 	data->tmp = data->philo;
-	while(i < data->number)
+	while (i < data->number)
 	{
 		pthread_create(&data->tmp->id, NULL, &print_hello, data);
 		data->tmp = data->tmp->next;
@@ -54,7 +54,7 @@ void	start(t_sim *data)
 	}
 	i = 0;
 	data->tmp = data->philo;
-	while(i < data->number)
+	while (i < data->number)
 	{
 		pthread_join(data->tmp->id, NULL);
 		data->tmp = data->tmp->next;

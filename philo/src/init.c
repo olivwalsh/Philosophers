@@ -6,21 +6,11 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/05 14:25:48 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/05 16:26:43 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void* init_thread(void *ptr)
-{
-	t_philo *philo;
-
-	philo = (t_philo *)ptr;
-
-    pthread_detach(pthread_self());
-    pthread_exit(NULL);
-}
 
 t_philo	*create_philo(int id)
 {
@@ -47,7 +37,7 @@ void	lstadd_philo(t_philo **lst, t_philo *new)
 		last->next = new;
 		new->prev = last;
 		new->next = *lst;
-		(*lst)->prev = new; 
+		(*lst)->prev = new;
 	}
 	else
 	{
