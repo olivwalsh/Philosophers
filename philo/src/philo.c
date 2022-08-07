@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/05 16:27:33 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/07 12:33:03 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,35 @@
 
 void	*print_hello(void *ptr)
 {
-	t_sim	*data;
+	t_philo	*philo;
 
-	data = (t_sim *)ptr;
-	pthread_mutex_lock(&data->print);
-	printf("Hello, I am philosopher n. %d\n", data->tmp->nb);
-	printf("Bye bye, philosopher n. %d\n", data->tmp->nb);
-	pthread_mutex_unlock(&data->print);
+	philo = (t_philo *)ptr;
+	pthread_mutex_lock(&philo->sim->print);
+	printf("Hello, I am philosopher n. %d\n", philo->nb);
+	printf("Bye bye, philosopher n. %d\n", philo->nb);
+	pthread_mutex_unlock(&philo->sim->print);
 	return (NULL);
 }
 
 void	start(t_sim *data)
 {
-	int		i;
+	t_philo	*first;
+	t_philo	*current;
 
 	if (pthread_mutex_init(&data->print, NULL))
 		printf("Mutex init failed\n");
-	i = 0;
-	data->tmp = data->philo;
-	while (i < data->number)
+	first = data->philo;
+	current = first;
+	while (current)
 	{
-		pthread_create(&data->tmp->id, NULL, &print_hello, data);
-		data->tmp = data->tmp->next;
-		i++;
+		pthread_create(&current->id, NULL, &print_hello, current);
+		current = current->next;
 	}
-	i = 0;
-	data->tmp = data->philo;
-	while (i < data->number)
+	current = first;
+	while (current)
 	{
-		pthread_join(data->tmp->id, NULL);
-		data->tmp = data->tmp->next;
-		i++;
+		pthread_join(current->id, NULL);
+		current = current->next;
 	}
 	pthread_mutex_destroy(&data->print);
 }

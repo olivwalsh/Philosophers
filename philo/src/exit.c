@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:40:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/04 18:21:37 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/07 12:35:21 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,16 @@ void	clean(t_sim *data)
 {
 	t_philo	*philo;
 	t_philo	*ptr;
-	t_philo	*first;
 
 	ptr = NULL;
 	if (data->philo)
 	{
-		first = data->philo;
 		philo = data->philo;
-		while (philo->next != first)
+		while (philo)
 		{
 			ptr = philo;
 			philo = philo->next;
 			free(ptr);
 		}
-		free(philo);
 	}
 }

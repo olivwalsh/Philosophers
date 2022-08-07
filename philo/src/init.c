@@ -6,13 +6,13 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/05 16:26:43 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/07 12:30:58 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	*create_philo(int id)
+t_philo	*create_philo(int id, t_sim *data)
 {
 	t_philo	*new;
 
@@ -23,6 +23,7 @@ t_philo	*create_philo(int id)
 	pthread_mutex_init(&new->fork, NULL);
 	new->next = NULL;
 	new->prev = NULL;
+	new->sim = data;
 	return (new);
 }
 
@@ -36,12 +37,12 @@ void	lstadd_philo(t_philo **lst, t_philo *new)
 		last = get_last_philo(*lst);
 		last->next = new;
 		new->prev = last;
-		new->next = *lst;
-		(*lst)->prev = new;
+		new->next = NULL;
 	}
 	else
 	{
 		*lst = new;
+		new->prev = NULL;
 		new->head = new;
 	}
 }
@@ -61,7 +62,7 @@ int	init(t_sim *data, int argc, char **argv)
 		data->meals_per_philo = 0;
 	while (i < data->number)
 	{
-		lstadd_philo(&data->philo, create_philo(i));
+		lstadd_philo(&data->philo, create_philo(i, data));
 		i++;
 	}
 	return (0);

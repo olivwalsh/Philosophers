@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/05 16:27:48 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/07 12:07:30 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_philo	*get_last_philo(t_philo *first)
 	if (!first->next)
 		return (first);
 	current = first;
-	while (current->next != first)
+	while (current->next)
 		current = current->next;
 	return (current);
 }
@@ -45,6 +45,7 @@ void	display_simulation(t_sim *data)
 {
 	int		i;
 	t_philo	*philo;
+	long	pid;
 
 	i = 0;
 	printf("------------ SIM DISPLAY ------------\n");
@@ -57,7 +58,11 @@ void	display_simulation(t_sim *data)
 	philo = data->philo;
 	while (i < data->number)
 	{
-		printf("philo n.%d, thread_id: %ld\t\tprev = %p\t curr = %p\t next = %p\n", philo->nb, philo->id, philo->prev, philo, philo->next);
+		pid = (long)philo->id;
+		if (i == 0)
+			printf("philo n.%d, thread_id: %ld\t\tprev = %p\t\t curr = %p\t next = %p\n", philo->nb, pid, philo->prev, philo, philo->next);
+		else
+			printf("philo n.%d, thread_id: %ld\t\tprev = %p\t curr = %p\t next = %p\n", philo->nb, pid, philo->prev, philo, philo->next);
 		philo = philo->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/05 16:28:32 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/07 12:30:08 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <string.h>
 # include <sys/time.h>
 
+struct s_simulation;
+
 typedef struct s_philosopher
 {
 	int						nb;
@@ -37,6 +39,7 @@ typedef struct s_philosopher
 	struct s_philosopher	*next;
 	struct s_philosopher	*head;
 	pthread_mutex_t			fork;
+	struct s_simulation		*sim;
 }				t_philo;
 
 typedef struct s_simulation
@@ -48,7 +51,6 @@ typedef struct s_simulation
 	int				meals_per_philo;
 	pthread_mutex_t	print;
 	t_philo			*philo;
-	t_philo			*tmp;
 }				t_sim;
 
 /* ***** parse.c ***** */
