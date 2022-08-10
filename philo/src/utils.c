@@ -6,26 +6,11 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/07 12:07:30 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/10 13:13:14 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	char	*i_s;
-	size_t	i;
-
-	i_s = s;
-	i = 0;
-	while (s && i < n)
-	{
-		i_s[i] = c;
-		i++;
-	}
-	return (s);
-}
 
 t_philo	*get_last_philo(t_philo *first)
 {
@@ -39,6 +24,17 @@ t_philo	*get_last_philo(t_philo *first)
 	while (current->next)
 		current = current->next;
 	return (current);
+}
+
+long	get_time(t_sim *data)
+{ 
+	struct timeval	now;
+	long			time;
+
+	gettimeofday(&now, NULL);
+	time = ((now.tv_sec * 1000) + (now.tv_usec / 1000)) \
+	- ((data->t0.tv_sec * 1000) + (data->t0.tv_usec / 1000));
+	return (time);
 }
 
 void	display_simulation(t_sim *data)
@@ -55,7 +51,7 @@ void	display_simulation(t_sim *data)
 	printf("sim->time_to_sleep = %ld ms\n", data->time_to_sleep);
 	printf("sim->meals_per_philo = %d\n", data->meals_per_philo);
 	printf("---- list of philos ----\n");
-	philo = data->philo;
+	philo = data->head;
 	while (i < data->number)
 	{
 		pid = (long)philo->id;

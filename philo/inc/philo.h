@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/07 12:30:08 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/10 15:11:04 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_philosopher
 	struct s_philosopher	*head;
 	pthread_mutex_t			fork;
 	struct s_simulation		*sim;
+	int						meals;
+	long					last_meal;
 }				t_philo;
 
 typedef struct s_simulation
@@ -50,7 +52,8 @@ typedef struct s_simulation
 	long			time_to_sleep;
 	int				meals_per_philo;
 	pthread_mutex_t	print;
-	t_philo			*philo;
+	t_philo			*head;
+	struct timeval	t0;
 }				t_sim;
 
 /* ***** parse.c ***** */
@@ -62,12 +65,17 @@ int				parsing_is_valid(int argc, char **argv);
 int				init(t_sim *data, int argc, char **argv);
 
 /* ***** philo.c ***** */
-void			start(t_sim *data);
+void			*start(void *ptr);
+void			execute(void *ptr);
+
+/* ***** philo_2.c ***** */
+int				dead_philo(t_sim *data);
+int				philo_hungry(t_sim *data);
 
 /* ***** utils.c ***** */
 void			display_simulation(t_sim *data);
-void			*ft_memset(void *s, int c, size_t n);
 t_philo			*get_last_philo(t_philo *first);
+long			get_time(t_sim *data);
 
 /* ***** error.c ***** */
 int				ft_error(int error);
