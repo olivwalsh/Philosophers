@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/10 15:11:04 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 12:15:53 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_philosopher
 	pthread_mutex_t			fork;
 	struct s_simulation		*sim;
 	int						meals;
-	long					last_meal;
+	struct timeval			last_meal;
 }				t_philo;
 
 typedef struct s_simulation
@@ -66,7 +66,9 @@ int				init(t_sim *data, int argc, char **argv);
 
 /* ***** philo.c ***** */
 void			*start(void *ptr);
-void			execute(void *ptr);
+int				execute(t_sim *data);
+int 			exitsim(t_sim *data);
+void			*philo_life(void *ptr);
 
 /* ***** philo_2.c ***** */
 int				dead_philo(t_sim *data);
@@ -75,7 +77,9 @@ int				philo_hungry(t_sim *data);
 /* ***** utils.c ***** */
 void			display_simulation(t_sim *data);
 t_philo			*get_last_philo(t_philo *first);
-long			get_time(t_sim *data);
+void			printlog(t_philo *philo, char *str);
+long long		timediff(struct timeval t0, struct timeval now);
+struct	timeval	timestamp();
 
 /* ***** error.c ***** */
 int				ft_error(int error);

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/10 12:37:03 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 12:17:18 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 int	is_dead(t_philo *philo)
 {
-	if (philo->last_meal && \
-		(get_time(philo->sim) - philo->last_meal) > philo->sim->time_to_die)
+	if (philo->meals && \
+		(timediff(philo->sim->t0, philo->last_meal)) > philo->sim->time_to_die)
 	{
-		pthread_mutex_lock(&philo->sim->print);
-		printf("%ld: %d died\n", get_time(philo->sim), philo->nb);
-		pthread_mutex_unlock(&philo->sim->print);
+		printlog(philo, "died");
 		return (1);
 	}
-	else if (get_time(philo->sim) > philo->sim->time_to_die)
+	else if (timediff(philo->sim->t0, timestamp()) > philo->sim->time_to_die)
 	{
-		pthread_mutex_lock(&philo->sim->print);
-		printf("%ld: %d died\n", get_time(philo->sim), philo->nb);
-		pthread_mutex_unlock(&philo->sim->print);
+		printlog(philo, "died");
 		return (1);
 	}
 	return (0);

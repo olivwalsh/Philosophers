@@ -6,11 +6,20 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/10 13:13:14 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 12:10:23 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	printlog(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->sim->print);
+	printf("%lld: ", timediff(philo->sim->t0, timestamp()));
+	printf("Philosopher n.%d ", philo->nb);
+	printf("%s\n", str);
+	pthread_mutex_unlock(&philo->sim->print);
+}
 
 t_philo	*get_last_philo(t_philo *first)
 {
@@ -26,15 +35,21 @@ t_philo	*get_last_philo(t_philo *first)
 	return (current);
 }
 
-long	get_time(t_sim *data)
-{ 
+struct	timeval	timestamp()
+{
 	struct timeval	now;
-	long			time;
-
 	gettimeofday(&now, NULL);
-	time = ((now.tv_sec * 1000) + (now.tv_usec / 1000)) \
-	- ((data->t0.tv_sec * 1000) + (data->t0.tv_usec / 1000));
-	return (time);
+	return (now);
+}
+
+long long	timediff(struct timeval t0, struct timeval now)
+{
+	long long	now_ms;
+	long long	t0_ms;
+
+	now_ms = (now.tv_sec * 1000) + (now.tv_usec / 1000);
+	t0_ms = (t0.tv_sec * 1000) + (t0.tv_usec / 1000);
+	return (now_ms - t0_ms);
 }
 
 void	display_simulation(t_sim *data)

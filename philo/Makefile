@@ -22,6 +22,7 @@ SRC_FILES	=	main.c \
 				utils.c \
 				error.c \
 				philo.c \
+				philo_2.c \
 				exit.c
 
 OBJS		= $(addprefix ${OBJ_DIR}, ${SRC_FILES:.c=.o})

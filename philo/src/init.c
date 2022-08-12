@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/10 15:18:40 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 12:16:33 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_philo	*create_philo(int id, t_sim *data)
 	new->next = NULL;
 	new->prev = NULL;
 	new->sim = data;
-	new->last_meal = 0;
-	pthread_create(&new->id, NULL, &print_hello, data);
 	return (new);
 }
 
