@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 13:51:48 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 16:15:56 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_philo	*create_philo(int id, t_sim *data)
 	new->next = NULL;
 	new->prev = NULL;
 	new->sim = data;
+	new->is_full = 0;
 	return (new);
 }
 
@@ -63,7 +64,7 @@ int	init(t_sim *data, int argc, char **argv)
 		data->meals_per_philo = 0;
 	while (i < data->number)
 	{
-		lstadd_philo(&data->head, create_philo(i, data));
+		lstadd_philo(&data->head, create_philo(i + 1, data));
 		i++;
 	}
 	return (0);

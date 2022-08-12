@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 13:56:04 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 16:14:44 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philosopher
 	pthread_mutex_t			fork;
 	struct s_simulation		*sim;
 	int						meals;
+	int						is_full;
 	struct timeval			last_meal;
 }				t_philo;
 
