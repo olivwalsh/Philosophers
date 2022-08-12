@@ -4,9 +4,12 @@ GREEN		= "\033[1;32m"
 RESET		= "\033[m"
 
 ifeq ($(DMEM),1)
-MEM 		= -fsanitize=address -g
+MEM 		= -fsanitize=address -fsanitize=thread -g
 endif
 
+ifeq ($(DTHREAD),1)
+MEM 		= -fsanitize=thread -g
+endif
 # Variables
 NAME		= philo
 CFLAGS		= -Wall -Wextra -Werror

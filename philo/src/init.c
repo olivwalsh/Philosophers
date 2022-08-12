@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 16:15:56 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 18:24:40 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ t_philo	*create_philo(int id, t_sim *data)
 		return (NULL);
 	new->nb = id;
 	pthread_mutex_init(&new->fork, NULL);
+	pthread_mutex_init(&new->last_m, NULL);
 	new->next = NULL;
 	new->prev = NULL;
 	new->sim = data;
 	new->is_full = 0;
+	new->meals = 0;
+	memset(&new->last_meal, 0, sizeof(struct timeval));
 	return (new);
 }
 

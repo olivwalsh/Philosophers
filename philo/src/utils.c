@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 16:25:30 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 18:19:41 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	printlog(t_philo *philo, char *str)
 		pthread_mutex_unlock(&philo->sim->print);
 		return ;
 	}
+	//printf("addr : %p\t", philo);
+	printf("last meal: %ld %ld usec\t", philo->last_meal.tv_sec, philo->last_meal.tv_usec / 1000);
 	printf("%lld: ", timediff(philo->sim->t0, timestamp()));
 	printf("Philosopher n.%d ", philo->nb);
 	printf("%s\n", str);

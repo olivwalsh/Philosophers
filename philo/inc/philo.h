@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 16:25:04 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 18:20:55 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philosopher
 	struct s_philosopher	*next;
 	struct s_philosopher	*head;
 	pthread_mutex_t			fork;
+	pthread_mutex_t			last_m;
 	struct s_simulation		*sim;
 	int						meals;
 	int						is_full;
