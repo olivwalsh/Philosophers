@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 16:18:22 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 16:33:57 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	putdown_forks(t_philo *philo)
 		return ;
 	if (philo->nb % 2)
 	{
-		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_unlock(&philo->fork);
 		pthread_mutex_unlock(&philo->prev->fork);
 	}
 	else
 	{
 		pthread_mutex_unlock(&philo->prev->fork);
-		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_unlock(&philo->fork);
 	}
 }
 
@@ -53,11 +53,11 @@ void	eat(t_philo	*philo)
 	pickup_forks(philo);
 	printlog(philo, "is eating");
 	philo->last_meal = timestamp();
+	usleep(philo->sim->time_to_eat * 1000);
+	putdown_forks(philo);
 	philo->meals++;
 	if (philo->sim->meals_per_philo && philo->meals == philo->sim->meals_per_philo)
 		philo->is_full = 1;
-	usleep(philo->sim->time_to_eat * 1000);
-	putdown_forks(philo);
 }
 
 void	*check_end(void * ptr)

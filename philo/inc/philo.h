@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 16:14:44 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 16:25:04 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ typedef struct s_philosopher
 typedef struct s_simulation
 {
 	int				number;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
 	int				meals_per_philo;
 	int				sim_end;
 	pthread_mutex_t	print;

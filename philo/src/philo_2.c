@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 14:36:38 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 16:34:47 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_dead(t_philo *philo)
 		philo->sim->sim_end = 1;
 		return (1);
 	}
-	else if (timediff(philo->sim->t0, timestamp()) > philo->sim->time_to_die)
+	else if (!philo->meals && timediff(philo->sim->t0, timestamp()) > philo->sim->time_to_die)
 	{
 		printlog(philo, "died");
 		philo->sim->sim_end = 1;

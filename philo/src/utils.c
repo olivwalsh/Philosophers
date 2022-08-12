@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 14:40:28 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 16:25:30 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	display_simulation(t_sim *data)
 	i = 0;
 	printf("------------ SIM DISPLAY ------------\n");
 	printf("sim->number_of_philosophers = %d\n", data->number);
-	printf("sim->time_to_die = %ld ms\n", data->time_to_die);
-	printf("sim->time_to_eat = %ld ms\n", data->time_to_eat);
-	printf("sim->time_to_sleep = %ld ms\n", data->time_to_sleep);
+	printf("sim->time_to_die = %lld ms\n", data->time_to_die);
+	printf("sim->time_to_eat = %lld ms\n", data->time_to_eat);
+	printf("sim->time_to_sleep = %lld ms\n", data->time_to_sleep);
 	printf("sim->meals_per_philo = %d\n", data->meals_per_philo);
 	printf("---- list of philos ----\n");
 	philo = data->head;
