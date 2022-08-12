@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 12:10:23 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 14:40:28 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 void	printlog(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->sim->print);
+	if (philo->sim->sim_end)
+	{
+		pthread_mutex_unlock(&philo->sim->print);
+		return ;
+	}
 	printf("%lld: ", timediff(philo->sim->t0, timestamp()));
 	printf("Philosopher n.%d ", philo->nb);
 	printf("%s\n", str);
 	pthread_mutex_unlock(&philo->sim->print);
 }
 
-t_philo	*get_last_philo(t_philo *first)
+t_philo			*get_last_philo(t_philo *first)
 {
 	t_philo	*current;
 
-	if (!first)
-		return (NULL);
-	if (!first->next)
-		return (first);
 	current = first;
-	while (current->next)
+	while (current->next && current->next != first)
 		current = current->next;
-	return (current);
+	return (current);	
 }
 
 struct	timeval	timestamp()

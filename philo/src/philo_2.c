@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 12:17:18 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 14:36:38 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ int	is_dead(t_philo *philo)
 		(timediff(philo->sim->t0, philo->last_meal)) > philo->sim->time_to_die)
 	{
 		printlog(philo, "died");
+		philo->sim->sim_end = 1;
 		return (1);
 	}
 	else if (timediff(philo->sim->t0, timestamp()) > philo->sim->time_to_die)
 	{
 		printlog(philo, "died");
+		philo->sim->sim_end = 1;
 		return (1);
 	}
 	return (0);
@@ -31,13 +33,16 @@ int	is_dead(t_philo *philo)
 int	dead_philo(t_sim *data)
 {
 	t_philo	*current;
+	int		i;
 
 	current = data->head;
-	while (current)
+	i = 0;
+	while (i < data->number)
 	{
 		if (is_dead(current))
 			return (1);
 		current = current->next;
+		i++;
 	}
 	return (0);
 }
@@ -45,15 +50,18 @@ int	dead_philo(t_sim *data)
 int	philo_hungry(t_sim *data)
 {
 	t_philo	*current;
+	int		i;
 
+	i = 0;
 	if (data->meals_per_philo)
 	{
 		current = data->head;
-		while (current)
+		while (i < data->number)
 		{
 			if (current->meals < data->meals_per_philo)
 				return (1);
 			current = current->next;
+			i++;
 		}
 		return (0);
 	}

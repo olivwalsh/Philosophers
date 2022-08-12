@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 12:16:33 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/12 13:51:48 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	lstadd_philo(t_philo **lst, t_philo *new)
 		last = get_last_philo(*lst);
 		last->next = new;
 		new->prev = last;
-		new->next = NULL;
+		new->next = *lst;
+		(*lst)->prev = new;
 	}
 	else
 	{
 		*lst = new;
-		new->prev = NULL;
 		new->head = new;
 	}
 }
@@ -56,6 +56,7 @@ int	init(t_sim *data, int argc, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->sim_end = 0;
 	if (argc == 6)
 		data->meals_per_philo = ft_atoi(argv[5]);
 	else
