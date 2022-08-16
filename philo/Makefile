@@ -4,7 +4,7 @@ GREEN		= "\033[1;32m"
 RESET		= "\033[m"
 
 ifeq ($(DMEM),1)
-MEM 		= -fsanitize=address -fsanitize=thread -g
+MEM 		= -fsanitize=address -g
 endif
 
 ifeq ($(DTHREAD),1)

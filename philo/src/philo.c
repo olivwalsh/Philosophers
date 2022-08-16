@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 18:32:52 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/16 14:10:22 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	pickup_forks(t_philo *philo)
 {
 	if (!philo->prev)
 	{
+		printlog(philo, "has no prev philo");
 		usleep((philo->sim->time_to_die  + 15) * 1000);
 		return (0);
 	}
@@ -52,21 +53,18 @@ void	putdown_forks(t_philo *philo)
 
 void	eat(t_philo	*philo)
 {
+	pthread_mutex_lock(&philo->last_m);
 	if (!philo->is_full && pickup_forks(philo))
 	{
-		
+		philo->last_meal = timestamp();
 		printlog(philo, "is eating");
 		philo->meals++;
-		pthread_mutex_lock(&philo->last_m);
-		philo->last_meal = timestamp();
-		pthread_mutex_unlock(&philo->last_m);
-		
 		usleep(philo->sim->time_to_eat * 1000);
 		putdown_forks(philo);
-		
 		if (philo->sim->meals_per_philo && philo->meals == philo->sim->meals_per_philo)
 			philo->is_full = 1;
 	}
+	pthread_mutex_unlock(&philo->last_m);
 }
 
 void	*check_end(void * ptr)
@@ -95,6 +93,8 @@ void	*philo_life(void *ptr)
 	while (!philo->sim->sim_end && !philo->is_full)
 	{
 		eat(philo);
+		if (!philo->prev)
+			return (NULL);
 		printlog(philo, "is sleeping");
 		usleep(philo->sim->time_to_sleep * 1000);
 		printlog(philo, "is thinking");

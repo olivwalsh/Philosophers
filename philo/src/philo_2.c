@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 18:27:16 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/16 12:49:57 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_dead(t_philo *philo)
 	}
 	pthread_mutex_lock(&philo->last_m);
 	if (philo->meals && \
-		(timediff(philo->sim->t0, philo->last_meal)) > philo->sim->time_to_die)
+		(timediff(philo->last_meal, timestamp()) > philo->sim->time_to_die))
 	{
 		printlog(philo, "died because was too hungry");
 		philo->sim->sim_end = 1;
