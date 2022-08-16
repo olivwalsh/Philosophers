@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 12:49:57 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/16 17:58:36 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,55 @@
 
 int	is_dead(t_philo *philo)
 {
-	if (philo->sim->sim_end)
+	if (check_sim_end(philo))
 		return (1);
-	if (!philo->meals && timediff(philo->sim->t0, timestamp()) > philo->sim->time_to_die)
+	if (!check_meals_count(philo) && timediff(philo->sim->t0, timestamp()) > philo->sim->time_to_die)
 	{
-		printlog(philo, "died because never ate");
+		printlog(philo, "died");
+		pthread_mutex_lock(&philo->sim->death);
 		philo->sim->sim_end = 1;
+		pthread_mutex_unlock(&philo->sim->death);
 		return (1);
 	}
-	pthread_mutex_lock(&philo->last_m);
-	if (philo->meals && \
-		(timediff(philo->last_meal, timestamp()) > philo->sim->time_to_die))
+	
+	if (check_meals_count(philo) && \
+		(last_time_eaten(philo) > philo->sim->time_to_die))
 	{
-		printlog(philo, "died because was too hungry");
+		printlog(philo, "died");
+		pthread_mutex_lock(&philo->sim->death);
 		philo->sim->sim_end = 1;
-		pthread_mutex_unlock(&philo->last_m);
+		pthread_mutex_unlock(&philo->sim->death);
 		return (1);
-	}
-	pthread_mutex_unlock(&philo->last_m);
-	return (0);
-}
-
-int	dead_philo(t_sim *data)
-{
-	t_philo	*current;
-	int		i;
-
-	current = data->head;
-	i = 0;
-	while (i < data->number)
-	{
-		if (is_dead(current))
-			return (1);
-		current = current->next;
-		i++;
 	}
 	return (0);
 }
 
-int	philo_hungry(t_sim *data)
+int	check_sim_end(t_philo *philo)
 {
-	t_philo	*current;
-	int		i;
+	int	end;
+	
+	pthread_mutex_lock(&philo->sim->death);
+	end = philo->sim->sim_end;
+	pthread_mutex_unlock(&philo->sim->death);
+	return (end);
+}
 
-	i = 0;
-	if (data->meals_per_philo)
-	{
-		current = data->head;
-		while (i < data->number)
-		{
-			if (current->meals < data->meals_per_philo)
-				return (1);
-			current = current->next;
-			i++;
-		}
-		return (0);
-	}
-	else
-		return (1);
+int	check_meals_count(t_philo *philo)
+{
+	int	meals;
+
+	pthread_mutex_lock(&philo->sim->death);
+	meals = philo->meals;
+	pthread_mutex_unlock(&philo->sim->death);
+	return (meals);
+}
+
+long long last_time_eaten(t_philo *philo)
+{
+	long long	last_time_eaten_ms;
+	
+	pthread_mutex_lock(&philo->sim->death);
+	last_time_eaten_ms = timediff(philo->last_meal, timestamp());
+	pthread_mutex_unlock(&philo->sim->death);
+	return (last_time_eaten_ms);
 }

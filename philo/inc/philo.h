@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/12 18:20:55 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/16 17:15:28 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_philosopher
 	struct s_philosopher	*next;
 	struct s_philosopher	*head;
 	pthread_mutex_t			fork;
-	pthread_mutex_t			last_m;
 	struct s_simulation		*sim;
 	int						meals;
 	int						is_full;
@@ -55,6 +54,7 @@ typedef struct s_simulation
 	int				meals_per_philo;
 	int				sim_end;
 	pthread_mutex_t	print;
+	pthread_mutex_t	death;
 	t_philo			*head;
 	struct timeval	t0;
 }				t_sim;
@@ -68,6 +68,9 @@ int				parsing_is_valid(int argc, char **argv);
 int				init(t_sim *data, int argc, char **argv);
 
 /* ***** philo.c ***** */
+int				check_sim_end(t_philo *philo);
+int				check_meals_count(t_philo *philo);
+long long 		last_time_eaten(t_philo *philo);
 void			*start(void *ptr);
 int				execute(t_sim *data);
 int 			exitsim(t_sim *data);

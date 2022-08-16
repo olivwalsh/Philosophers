@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 12:58:33 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/16 18:33:11 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 void	printlog(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->sim->print);
-	if (philo->sim->sim_end)
+	if (check_sim_end(philo))
 	{
 		pthread_mutex_unlock(&philo->sim->print);
 		return ;
 	}
-	
-	//printf("addr : %p\t", philo);
-	// printf("last meal: %ld %ld usec\t", philo->last_meal.tv_sec, philo->last_meal.tv_usec / 1000);
 	printf(" %lld ", timediff(philo->sim->t0, timestamp()));
 	printf("%d ", philo->nb);
 	printf("%s\n", str);
-	if (!strncmp(str, "died", 4))
-		printf("its been %lld ms since philo last time ate\n", timediff(philo->last_meal, timestamp()));
 	pthread_mutex_unlock(&philo->sim->print);
 }
 

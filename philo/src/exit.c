@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:40:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 13:09:42 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/16 18:18:10 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	clean(t_sim *data)
 		{
 			ptr = philo;
 			philo = philo->next;
-			free(ptr);
+			pthread_mutex_destroy(&ptr->fork);
+			if (ptr)
+				free(ptr);
 			i++;
 		}
 	}
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->death);
 }
