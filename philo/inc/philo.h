@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 17:15:28 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 11:17:47 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <string.h>
 # include <sys/time.h>
 
-struct s_simulation;
+struct	s_simulation;
 
 typedef struct s_philosopher
 {
@@ -59,39 +59,64 @@ typedef struct s_simulation
 	struct timeval	t0;
 }				t_sim;
 
-/* ***** parse.c ***** */
+/*
+**
+** parse.c
+**
+*/
 unsigned long	ft_atoi(char *str);
 int				is_digit(char c);
 int				parsing_is_valid(int argc, char **argv);
 
-/* ***** init.c ***** */
+/*
+**
+** init.c
+**
+*/
 int				init(t_sim *data, int argc, char **argv);
 
-/* ***** philo.c ***** */
-int				check_sim_end(t_philo *philo);
-int				check_meals_count(t_philo *philo);
-long long 		last_time_eaten(t_philo *philo);
-void			*start(void *ptr);
+/*
+**
+** philo.c 
+**
+*/
 int				execute(t_sim *data);
-int 			exitsim(t_sim *data);
 void			*philo_life(void *ptr);
 
-/* ***** philo_2.c ***** */
-int				dead_philo(t_sim *data);
+/*
+**
+** philo_2.c
+** 
+*/
+void			*check_end(void *ptr);
+int				check_meals_count(t_philo *philo);
+int				check_sim_end(t_philo *philo);
 int				is_dead(t_philo *philo);
-int				philo_hungry(t_sim *data);
+long long		last_time_eaten(t_philo *philo);
 
-/* ***** utils.c ***** */
-void			display_simulation(t_sim *data);
+/*
+**
+** utils.c
+**
+*/
 t_philo			*get_last_philo(t_philo *first);
 void			printlog(t_philo *philo, char *str);
 long long		timediff(struct timeval t0, struct timeval now);
-struct	timeval	timestamp();
+struct	timeval	timestamp(void);
 
-/* ***** error.c ***** */
+/*
+**
+** error.c
+**
+*/
 int				ft_error(int error);
 
-/* ***** exit.c ***** */
+/*
+**
+** exit.c
+**
+*/
 void			clean(t_sim *data);
+int				exitsim(t_sim *data);
 
 #endif

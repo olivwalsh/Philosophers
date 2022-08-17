@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 18:32:54 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 11:10:36 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,18 @@ int	pickup_forks(t_philo *philo)
 		pthread_mutex_lock(&philo->fork);
 		printlog(philo, "has taken a fork");
 		usleep((philo->sim->time_to_die) * 1000);
-		
 		printlog(philo, "died");
 		pthread_mutex_unlock(&philo->fork);
 		return (0);
 	}
-	if (philo->nb % 2) // odd philos pick first its own fork, then prev fork
+	if (philo->nb % 2)
 	{
 		pthread_mutex_lock(&philo->fork);
 		printlog(philo, "has taken a fork");
 		pthread_mutex_lock(&philo->prev->fork);
 		printlog(philo, "has taken a fork");
 	}
-	else // even philos pick first prev fork, then its own
+	else
 	{
 		pthread_mutex_lock(&philo->prev->fork);
 		printlog(philo, "has taken a fork");
@@ -74,29 +73,6 @@ void	eat(t_philo	*philo)
 			pthread_mutex_unlock(&philo->sim->death);
 		}
 	}
-	
-}
-
-void	*check_end(void * ptr)
-{
-	t_sim	*data;
-	t_philo	*current;
-
-	data = (t_sim *)ptr;
-	usleep(10000);
-	if (data->number == 1)
-		return (NULL);
-	current = data->head;
-	while (current && !check_sim_end(current))
-	{
-		usleep(100);
-		// if (current->is_full)
-		// 	return (NULL);
-		if (is_dead(current))
-			return (NULL);
-		current = current->next;
-	}
-	return (NULL);
 }
 
 void	*philo_life(void *ptr)
@@ -119,9 +95,9 @@ void	*philo_life(void *ptr)
 
 int	execute(t_sim *data)
 {
-	t_philo	*current;
+	t_philo		*current;
 	pthread_t	monitor;
-	int		i;
+	int			i;
 
 	gettimeofday(&data->t0, NULL);
 	if (pthread_mutex_init(&data->print, NULL))
@@ -140,22 +116,4 @@ int	execute(t_sim *data)
 		i++;
 	}
 	return (exitsim(data));
-}
-
-int exitsim(t_sim *data)
-{
-	t_philo	*current;
-	int		i;
-
-	current = data->head;
-	i = 0;
-	while (i < data->number && current)
-	{
-		if (pthread_join(current->id, NULL))
-			return (EXIT_FAILURE);
-		current = current->next;
-		i++;
-	}
-	
-	return (EXIT_SUCCESS);
 }

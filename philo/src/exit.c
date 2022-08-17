@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:40:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 18:18:10 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 11:10:32 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,21 @@ void	clean(t_sim *data)
 	}
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->death);
+}
+
+int	exitsim(t_sim *data)
+{
+	t_philo	*current;
+	int		i;
+
+	current = data->head;
+	i = 0;
+	while (i < data->number && current)
+	{
+		if (pthread_join(current->id, NULL))
+			return (EXIT_FAILURE);
+		current = current->next;
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
