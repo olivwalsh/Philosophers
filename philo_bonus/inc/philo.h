@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 11:17:47 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:54:40 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,23 @@
 # include <limits.h>
 # include <pthread.h>
 # include <string.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
 # include <sys/time.h>
+# include <semaphore.h>
 
 struct	s_simulation;
 
 typedef struct s_philosopher
 {
 	int						nb;
-	pthread_t				id;
+	
+	pid_t					pid;
 	struct s_philosopher	*prev;
 	struct s_philosopher	*next;
 	struct s_philosopher	*head;
-	pthread_mutex_t			fork;
 	struct s_simulation		*sim;
 	int						meals;
 	int						is_full;
@@ -53,8 +58,9 @@ typedef struct s_simulation
 	long long		time_to_sleep;
 	int				meals_per_philo;
 	int				sim_end;
-	pthread_mutex_t	print;
-	pthread_mutex_t	death;
+	sem_t			*print;
+	sem_t			*death;
+	sem_t			*forks;
 	t_philo			*head;
 	struct timeval	t0;
 }				t_sim;
@@ -81,7 +87,7 @@ int				init(t_sim *data, int argc, char **argv);
 **
 */
 int				execute(t_sim *data);
-void			*philo_life(void *ptr);
+void			philo_life(t_philo *philo);
 
 /*
 **

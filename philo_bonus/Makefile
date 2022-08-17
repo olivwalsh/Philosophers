@@ -12,8 +12,8 @@ MEM 		= -fsanitize=thread -g
 endif
 # Variables
 NAME		= philo_bonus
-CFLAGS		= -Wall -Wextra -Werror
-CC			= cc -pthread
+CFLAGS		= -Wall -Wextra -Werror -pthread
+CC			= cc
 
 OBJ_DIR		= objs/
 SRC_DIR		= src/
@@ -40,7 +40,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(MEM) $(INC) $(OBJS) -o $@
-	@echo -n "Compiling Philosophers - bonus"
+	@echo -n "Compiling Philosophers -bonus"
 	@echo $(GREEN)"\tOK"$(RESET)
 
 clean :

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:28:17 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/16 16:28:41 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:53:57 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_philo	*create_philo(int id, t_sim *data)
 	if (!new)
 		return (NULL);
 	new->nb = id;
-	pthread_mutex_init(&new->fork, NULL);
 	new->next = NULL;
 	new->prev = NULL;
 	new->sim = data;
@@ -60,7 +59,6 @@ int	init(t_sim *data, int argc, char **argv)
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	data->sim_end = 0;
-	pthread_mutex_init(&data->death, NULL);
 	if (argc == 6)
 		data->meals_per_philo = ft_atoi(argv[5]);
 	else
@@ -70,5 +68,8 @@ int	init(t_sim *data, int argc, char **argv)
 		lstadd_philo(&data->head, create_philo(i + 1, data));
 		i++;
 	}
+	data->print = sem_open("print", O_CREAT, 0644, 1);
+	data->death = sem_open("death", O_CREAT, 0644, 1);
+	data->forks = sem_open("forks", O_CREAT, 0644, data->number);
 	return (0);
 }
