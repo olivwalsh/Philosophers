@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:40:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 17:47:31 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:52:59 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,22 @@ int	exitsim(t_sim *data)
 	int		exit_status;
 
 	current = data->head;
-	i = 0;
-	waitpid(-1 , &exit_status, 0);
+	i = -1;
+	waitpid(-1, &exit_status, 0);
 	if (WEXITSTATUS(exit_status) == 1)
 	{
-		while (i < data->number)
+		while (++i < data->number)
 		{
 			kill(current->pid, SIGTERM);
 			current = current->next;
-			i++;
 		}
 	}
 	else
 	{
-		while (i < data->number)
+		while (++i < data->number)
 		{
 			waitpid(current->pid, &exit_status, 0);
 			current = current->next;
-			i++;
 		}
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 17:15:45 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:53:09 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ struct	s_simulation;
 typedef struct s_philosopher
 {
 	int						nb;
-	
 	pid_t					pid;
 	struct s_philosopher	*prev;
 	struct s_philosopher	*next;
