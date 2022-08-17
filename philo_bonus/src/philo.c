@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 17:26:43 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:22:10 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	execute(t_sim *data)
 			return (-1);
 		else if (current->pid == 0)
 		{
-			philo_life(current);
+			if (philo_life(current))
+				exit(1);
 			exit(0);
 		}
 		current = current->next;

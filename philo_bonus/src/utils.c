@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 17:45:11 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:34:00 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ void	printlog(t_philo *philo, char *str)
 {
 	sem_wait(philo->sim->print);
 	if (check_sim_end(philo))
-	{
-		sem_post(philo->sim->print);
 		return ;
-	}
 	printf(" %lld ", timediff(philo->sim->t0, timestamp()));
 	printf("%d ", philo->nb);
 	printf("%s\n", str);

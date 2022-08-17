@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:40:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 17:52:59 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:09:28 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	clean(t_sim *data)
 	int		i;
 
 	ptr = NULL;
+	sem_close(data->death);
+	sem_close(data->print);
+	sem_close(data->forks);
+	sem_unlink("death");
+	sem_unlink("print");
+	sem_unlink("forks");
 	i = 0;
 	if (data->head)
 	{
@@ -27,8 +33,7 @@ void	clean(t_sim *data)
 		{
 			ptr = philo;
 			philo = philo->next;
-			if (ptr)
-				free(ptr);
+			free(ptr);
 			i++;
 		}
 	}
