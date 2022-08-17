@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 16:54:40 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:15:45 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int				init(t_sim *data, int argc, char **argv);
 **
 */
 int				execute(t_sim *data);
-void			philo_life(t_philo *philo);
+int				philo_life(t_philo *philo);
 
 /*
 **

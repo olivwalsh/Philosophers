@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 16:55:28 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:26:43 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,24 @@ void	eat(t_philo	*philo)
 	}
 }
 
-void	philo_life(t_philo *philo)
+int	philo_life(t_philo *philo)
 {
 	pthread_t	monitor;
 
-	if (pthread_create(&monitor, NULL, &check_end, philo->sim))
-		return ;
+	if (pthread_create(&monitor, NULL, &check_end, philo))
+		return (1);
 	if (pthread_detach(monitor))
-		return ;
+		return (1);
 	while (!check_sim_end(philo) && !philo->is_full)
 	{
 		eat(philo);
 		if (!philo->prev)
-			return ;
+			return (1);
 		printlog(philo, "is sleeping");
 		usleep(philo->sim->time_to_sleep * 1000);
 		printlog(philo, "is thinking");
 	}
+	return (0);
 }
 
 int	execute(t_sim *data)
@@ -90,7 +91,10 @@ int	execute(t_sim *data)
 		if (current->pid < 0)
 			return (-1);
 		else if (current->pid == 0)
+		{
 			philo_life(current);
+			exit(0);
+		}
 		current = current->next;
 		i++;
 	}
