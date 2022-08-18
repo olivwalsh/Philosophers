@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 10:39:18 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:27:57 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_dead(t_philo *philo)
 {
-	if (philo->is_full)
+	if (check_is_full(philo))
 		return (0);
 	if (check_sim_end(philo))
 		return (1);
@@ -47,16 +47,27 @@ int	check_sim_end(t_philo *philo)
 	i = 0;
 	while (i < philo->sim->number)
 	{
-		if (!philo->is_full)
+		if (!check_is_full(philo))
 		{
 			pthread_mutex_lock(&philo->sim->death);
 			end = philo->sim->sim_end;
 			pthread_mutex_unlock(&philo->sim->death);
 			return (end);
 		}
+		philo = philo->next;
 		i++;
 	}
 	return (1);
+}
+
+int	check_is_full(t_philo *philo)
+{
+	int	end;
+
+	pthread_mutex_lock(&philo->sim->death);
+	end = philo->is_full;
+	pthread_mutex_unlock(&philo->sim->death);
+	return (end);
 }
 
 int	check_meals_count(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 08:52:19 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:01:17 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	printlog(t_philo *philo, char *str)
 {
 	if (check_sim_end(philo))
-	{
-		pthread_mutex_unlock(&philo->sim->print);
 		return ;
-	}
 	pthread_mutex_lock(&philo->sim->print);
 	printf(" %lld ", timediff(philo->sim->t0, timestamp()));
 	printf("%d ", philo->nb);

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 10:27:11 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:06:10 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_dead(t_philo *philo)
 {
-	if (philo->is_full)
+	if (check_is_full(philo))
 		return (0);
 	if (check_sim_end(philo))
 		return (1);
@@ -37,6 +37,16 @@ int	is_dead(t_philo *philo)
 	return (0);
 }
 
+int	check_is_full(t_philo *philo)
+{
+	int	end;
+
+	sem_wait(philo->sim->death);
+	end = philo->is_full;
+	sem_post(philo->sim->death);
+	return (end);
+}
+
 int	check_sim_end(t_philo *philo)
 {
 	int	end;
@@ -55,16 +65,6 @@ int	check_meals_count(t_philo *philo)
 	meals = philo->meals;
 	sem_post(philo->sim->death);
 	return (meals);
-}
-
-long long	last_time_eaten(t_philo *philo)
-{
-	long long	last_time_eaten_ms;
-
-	sem_wait(philo->sim->death);
-	last_time_eaten_ms = timediff(philo->last_meal, timestamp());
-	sem_post(philo->sim->death);
-	return (last_time_eaten_ms);
 }
 
 void	*check_end(void *ptr)

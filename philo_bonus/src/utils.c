@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 18:34:00 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:06:17 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ t_philo	*get_last_philo(t_philo *first)
 	while (current->next && current->next != first)
 		current = current->next;
 	return (current);
+}
+
+long long	last_time_eaten(t_philo *philo)
+{
+	long long	last_time_eaten_ms;
+
+	sem_wait(philo->sim->death);
+	last_time_eaten_ms = timediff(philo->last_meal, timestamp());
+	sem_post(philo->sim->death);
+	return (last_time_eaten_ms);
 }
 
 struct	timeval	timestamp(void)

@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 14:06:57 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 09:01:40 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:17:14 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	putdown_forks(t_philo *philo)
 
 void	eat(t_philo	*philo)
 {
-	if (!philo->is_full && pickup_forks(philo))
+	if (!check_is_full(philo) && pickup_forks(philo))
 	{
 		pthread_mutex_lock(&philo->sim->death);
 		philo->last_meal = timestamp();
@@ -80,7 +80,7 @@ void	*philo_life(void *ptr)
 	t_philo		*philo;
 
 	philo = (t_philo *)ptr;
-	while (!check_sim_end(philo) && !philo->is_full)
+	while (!check_sim_end(philo) && !check_is_full(philo))
 	{
 		eat(philo);
 		if (!philo->prev)

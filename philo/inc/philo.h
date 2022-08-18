@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 11:17:47 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:15:00 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void			*philo_life(void *ptr);
 ** 
 */
 void			*check_end(void *ptr);
+int				check_is_full(t_philo *philo);
 int				check_meals_count(t_philo *philo);
 int				check_sim_end(t_philo *philo);
 int				is_dead(t_philo *philo);
