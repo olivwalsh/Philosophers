@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:39 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 11:01:17 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:30:30 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ long long	timediff(struct timeval t0, struct timeval now)
 	now_ms = (now.tv_sec * 1000) + (now.tv_usec / 1000);
 	t0_ms = (t0.tv_sec * 1000) + (t0.tv_usec / 1000);
 	return (now_ms - t0_ms);
+}
+
+long long	last_time_eaten(t_philo *philo)
+{
+	long long	last_time_eaten_ms;
+
+	pthread_mutex_lock(&philo->sim->death);
+	last_time_eaten_ms = timediff(philo->last_meal, timestamp());
+	pthread_mutex_unlock(&philo->sim->death);
+	return (last_time_eaten_ms);
 }

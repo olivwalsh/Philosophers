@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 11:27:57 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:30:23 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,6 @@ int	check_meals_count(t_philo *philo)
 	meals = philo->meals;
 	pthread_mutex_unlock(&philo->sim->death);
 	return (meals);
-}
-
-long long	last_time_eaten(t_philo *philo)
-{
-	long long	last_time_eaten_ms;
-
-	pthread_mutex_lock(&philo->sim->death);
-	last_time_eaten_ms = timediff(philo->last_meal, timestamp());
-	pthread_mutex_unlock(&philo->sim->death);
-	return (last_time_eaten_ms);
 }
 
 void	*check_end(void *ptr)

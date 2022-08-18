@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 18:14:33 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 11:15:00 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:30:46 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int				check_is_full(t_philo *philo);
 int				check_meals_count(t_philo *philo);
 int				check_sim_end(t_philo *philo);
 int				is_dead(t_philo *philo);
-long long		last_time_eaten(t_philo *philo);
 
 /*
 **
@@ -101,6 +100,7 @@ long long		last_time_eaten(t_philo *philo);
 **
 */
 t_philo			*get_last_philo(t_philo *first);
+long long		last_time_eaten(t_philo *philo);;
 void			printlog(t_philo *philo, char *str);
 long long		timediff(struct timeval t0, struct timeval now);
 struct	timeval	timestamp(void);
