@@ -3,3 +3,4 @@ philo/objs/
 .vscode/
 philo_bonus/philo_bonus
 philo_bonus/objs/
+.nfs*
