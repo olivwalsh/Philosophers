@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/17 17:44:21 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 09:11:05 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_dead(t_philo *philo)
 {
+	if (philo->is_full)
+		return (0);
 	if (check_sim_end(philo))
 		return (1);
 	if (!check_meals_count(philo) && \
