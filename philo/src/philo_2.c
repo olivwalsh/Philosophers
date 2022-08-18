@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:04:46 by owalsh            #+#    #+#             */
-/*   Updated: 2022/08/18 11:30:23 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:01:33 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,14 @@ int	is_dead(t_philo *philo)
 int	check_sim_end(t_philo *philo)
 {
 	int	end;
-	int	i;
 
-	i = 0;
-	while (i < philo->sim->number)
-	{
-		if (!check_is_full(philo))
-		{
-			pthread_mutex_lock(&philo->sim->death);
-			end = philo->sim->sim_end;
-			pthread_mutex_unlock(&philo->sim->death);
-			return (end);
-		}
-		philo = philo->next;
-		i++;
-	}
-	return (1);
+	pthread_mutex_lock(&philo->sim->death);
+	end = philo->sim->sim_end;
+	pthread_mutex_unlock(&philo->sim->death);
+	if (end)
+		return (end);
+	else
+		return (check_is_full(philo));
 }
 
 int	check_is_full(t_philo *philo)
